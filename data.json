@@ -45,12 +45,12 @@
     {
       "position": 45,
       "speed": 80
-    },
+    }
   ],
   "traffic_lights": [
     {
       "position": 28,
       "duration": 3000
-    },
+    }
   ]
 }
