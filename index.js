@@ -6,12 +6,12 @@ function handleSubmit(event) {
   // prevent page from reloading when form is submitted
   event.preventDefault();
   const input = document.querySelector(".searchField-input").value;
-
   form.reset();
+  getJSON('/data.json', input);
 }
 
 // get the JSON data from a file
-function getJSON(url) {
+function getJSON(url, searchText) {
   var x = new XMLHttpRequest();
   x.onreadystatechange = function(){
     if(x.status == 200){
@@ -20,7 +20,14 @@ function getJSON(url) {
         var a = x.response;   //object
 
         var filteredResults = [];
-        filteredResults = filter(a, "Smart");
+        if (searchText == "") {
+          filteredResults = a["cars"];
+        } else {
+          filteredResults = filter(a, searchText);
+        }
+
+
+        // filteredResults = filter(a, input);
         console.log(typeof(filteredResults));
         console.log(filteredResults);
       }
@@ -32,7 +39,8 @@ function getJSON(url) {
   x.send();
 }
 
-getJSON('/data.json');
+//initial load of page, no search yet
+getJSON('/data.json',"");
 
 
 function filter(jsonObj, text) {
