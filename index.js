@@ -39,10 +39,7 @@ function getJSON(url, searchText) {
   x.send();
 }
 
-//initial load of page, no search yet
-getJSON('/data.json',"");
-
-
+// filter cars for searched name
 function filter(jsonObj, text) {
   var carList = jsonObj["cars"]; //5 objects
   for (let index = 0; index < carList.length; ++index){
@@ -51,3 +48,6 @@ function filter(jsonObj, text) {
     }
   }
 }
+
+//initial load of page, no search yet
+getJSON('/data.json',"");
