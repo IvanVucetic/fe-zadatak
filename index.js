@@ -6,7 +6,7 @@ function handleSubmit(event) {
   // prevent page from reloading when form is submitted
   event.preventDefault();
   const input = document.querySelector(".searchField-input").value;
-  console.log(input); //delete this later
+
   form.reset();
 }
 
@@ -16,9 +16,13 @@ function getJSON(url) {
   x.onreadystatechange = function(){
     if(x.status == 200){
       if (x.readyState == XMLHttpRequest.DONE) {
-        // console.log(x.responseText);
+
         var a = x.response;   //object
-        alert(a["cars"][0]["name"]);   //fiat punto - works!
+
+        var filteredResults = [];
+        filteredResults = filter(a, "Smart");
+        console.log(typeof(filteredResults));
+        console.log(filteredResults);
       }
     }
   };
@@ -29,3 +33,13 @@ function getJSON(url) {
 }
 
 getJSON('/data.json');
+
+
+function filter(jsonObj, text) {
+  var carList = jsonObj["cars"]; //5 objects
+  for (let index = 0; index < carList.length; ++index){
+    if (carList[index].name.search(text) != -1) {
+      return carList[index];
+    }
+  }
+}
